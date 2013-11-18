@@ -56,5 +56,5 @@ LICENSE
   s.frameworks   = 'SystemConfiguration'  
   s.libraries    = 'xml2'
   s.dependency   'KissXML'
-  s.xcconfig     = { 'HEADER_SEARCH_PATHS' => '"$(SDKROOT)/usr/include/libxml2" "${PODS_ROOT}/Headers/Airbrake-iOS"' }
+  #s.xcconfig     = { 'HEADER_SEARCH_PATHS' => '"$(SDKROOT)/usr/include/libxml2" "${PODS_ROOT}/Headers/Airbrake-iOS"' }
 end
