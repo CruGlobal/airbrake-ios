@@ -22,7 +22,7 @@ EOT
 
 Pod::Spec.new do |s|
   s.name         = "Airbrake-iOS"
-  s.version      = "3.1.0"
+  s.version      = "3.1.1"
   s.summary      = "A Airbrake Notifier for iOS."
   s.homepage     = "http://airbrake.io/pages/ios-notifier"
   s.author       = { "Airbrake" => "support@airbrake.io" }
@@ -50,7 +50,7 @@ Pod::Spec.new do |s|
 
 LICENSE
 }  
-  s.source       = { :git => "https://github.com/airbrake/airbrake-ios.git", :tag => "3.1.0" }
+  s.source       = { :git => "https://github.com/CruGlobal/airbrake-ios.git", :tag => "3.1.1" }
   s.source_files = 'Airbrake/{notifier,gcalertview}/*.{h,m}'
   s.resources    = "Airbrake/notifier/*.lproj"
   s.frameworks   = 'SystemConfiguration'  
