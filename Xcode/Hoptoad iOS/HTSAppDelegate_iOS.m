@@ -38,12 +38,6 @@
     
 }
 
-#pragma mark - memory management
-- (void)dealloc {
-    self.window = nil;
-    [super dealloc];
-}
-
 #pragma mark - button actions
 - (IBAction)exception {
 	NSArray *array = [NSArray array];

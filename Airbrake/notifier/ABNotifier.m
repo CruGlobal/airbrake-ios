@@ -337,7 +337,7 @@ void ABNotifierReachabilityDidChange(SCNetworkReachabilityRef target, SCNetworkR
             path = NSTemporaryDirectory();
         }
         else {
-            path = [path stringByAppendingPathComponent:@"Hoptoad Notices"];
+            path = [path stringByAppendingPathComponent:@"Errbit Notices"];
         }
 #else
         NSArray *folders = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
@@ -347,7 +347,7 @@ void ABNotifierReachabilityDidChange(SCNetworkReachabilityRef target, SCNetworkR
         }
         else {
             path = [path stringByAppendingPathComponent:ABNotifierApplicationName()];
-            path = [path stringByAppendingPathComponent:@"Hoptoad Notices"];
+            path = [path stringByAppendingPathComponent:@"Errbit Notices"];
         }
 #endif
         NSFileManager *manager = [NSFileManager defaultManager];
@@ -358,7 +358,7 @@ void ABNotifierReachabilityDidChange(SCNetworkReachabilityRef target, SCNetworkR
              attributes:nil
              error:nil];
         }
-        [path retain];
+		
     });
     return path;
 }
@@ -519,7 +519,6 @@ void ABNotifierReachabilityDidChange(SCNetworkReachabilityRef target, SCNetworkR
                                     initWithData:responseBody
                                     encoding:NSUTF8StringEncoding];
         ABLog(@"%@", responseString);
-        [responseString release];
 #endif
     }
     
@@ -617,7 +616,6 @@ void ABNotifierReachabilityDidChange(SCNetworkReachabilityRef target, SCNetworkR
     [alert setDidDismissBlock:delegatePresentBlock];
     [alert setCancelButtonIndex:2];
     [alert show];
-    [alert release];
     
 #else
     

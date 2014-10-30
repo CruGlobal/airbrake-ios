@@ -57,7 +57,7 @@ const int ABNotifierExceptionNoticeType   = 2;
 @property (nonatomic, copy) NSString        *action;
 @property (nonatomic, copy) NSString        *executable;
 @property (nonatomic, copy) NSArray         *callStack;
-@property (nonatomic, retain) NSNumber      *noticeVersion;
+@property (nonatomic, strong) NSNumber      *noticeVersion;
 @property (nonatomic, copy) NSDictionary    *environmentInfo;
 @end
 
@@ -172,7 +172,6 @@ const int ABNotifierExceptionNoticeType   = 2;
                 NSMutableDictionary *mutableInfo = [self.environmentInfo mutableCopy];
                 [mutableInfo addEntriesFromDictionary:[dictionary objectForKey:ABNotifierExceptionParametersKey]];
                 self.environmentInfo = mutableInfo;
-                [mutableInfo release];
                 
             }
             
@@ -186,19 +185,17 @@ const int ABNotifierExceptionNoticeType   = 2;
         }
         @catch (NSException *exception) {
             ABLog(@"%@", exception);
-            [self release];
             return nil;
         }
     }
     return self;
 }
+
 + (ABNotice *)noticeWithContentsOfFile:(NSString *)path {
-    return [[[ABNotice alloc] initWithContentsOfFile:path] autorelease];
+    return [[ABNotice alloc] initWithContentsOfFile:path];
 }
+
 - (NSString *)hoptoadXMLString {
-    
-    // pool
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // create root
     DDXMLElement *notice = [DDXMLElement elementWithName:@"notice"];
@@ -211,8 +208,8 @@ const int ABNotifierExceptionNoticeType   = 2;
     
     // set notifier information
     DDXMLElement *notifier = [DDXMLElement elementWithName:@"notifier"];
-    [notifier addChild:[DDXMLElement elementWithName:@"name" stringValue:@"Hoptoad iOS Notifier"]];
-    [notifier addChild:[DDXMLElement elementWithName:@"url" stringValue:@"http://github.com/guicocoa/hoptoad-ios"]];
+    [notifier addChild:[DDXMLElement elementWithName:@"name" stringValue:@"Errbit iOS Notifier"]];
+    [notifier addChild:[DDXMLElement elementWithName:@"url" stringValue:@"http://github.com/CruGlobal/airbrake-ios"]];
 	[notifier addChild:[DDXMLElement elementWithName:@"version" stringValue:ABNotifierVersion]];
 	[notice addChild:notifier];
     
@@ -264,13 +261,11 @@ const int ABNotifierExceptionNoticeType   = 2;
     // get return value
     NSString *XMLString = [[notice XMLString] copy];
     
-    // pool
-    [pool drain];
-    
     // return
-    return [XMLString autorelease];
+    return XMLString;
     
 }
+
 - (NSString *)description {
 	unsigned int count;
 	objc_property_t *properties = class_copyPropertyList([self class], &count);
@@ -283,17 +278,6 @@ const int ABNotifierExceptionNoticeType   = 2;
 	}
 	free(properties);
     return [NSString stringWithFormat:@"%@ %@", [super description], [dictionary description]]; 
-}
-- (void)dealloc {
-	self.exceptionName = nil;
-	self.exceptionReason = nil;
-	self.environmentName = nil;
-	self.environmentInfo = nil;
-    self.bundleVersion = nil;
-    self.action = nil;
-	self.callStack = nil;
-	self.controller = nil;
-	[super dealloc];
 }
 
 @end
